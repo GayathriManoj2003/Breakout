@@ -1,4 +1,6 @@
-package Breakout;
+package Breakout.controller;
+
+import Breakout.model.Ball;
 
 public class BallController {
 	Ball ball;
