@@ -1,17 +1,39 @@
 package Breakout;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
+    public static void main(String[] args) {
+    	BreakoutGameFactory factory = new BreakoutGameFactory();
+        JFrame frame = new JFrame("Breakout Game");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 300);
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		JFrame window = new JFrame();
-		window.setBounds(10, 10, 700, 600);
-		window.setTitle("Breakout");
-		window.setVisible(true);
-		window.setResizable(false);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        // Create panels
+        MenuPanel menuPanel = new MenuPanel();
 
+        // Create CardLayout
+        CardLayout cardLayout = new CardLayout();
+        JPanel cardPanel = new JPanel(cardLayout);
+
+        // Add panels to cardPanel
+        cardPanel.add(menuPanel, "MenuPanel");
+        // Add cardPanel to frame
+        frame.add(cardPanel);
+
+        // Display the frame
+        frame.setVisible(true);
+        
+        // Handle switching between panels
+        menuPanel.setStartGameAction(e -> {
+            String command = e.getActionCommand();
+            GamePanel gameLevelPanel = factory.getGameInstance(command);
+
+            cardPanel.add(gameLevelPanel, "GamePanel");
+
+            cardLayout.show(cardPanel, "GamePanel");
+        });
+        menuPanel.setLogoutAction(e -> System.exit(0));
+    }
 }
