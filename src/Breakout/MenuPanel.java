@@ -6,6 +6,8 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionEvent;
 
 public class MenuPanel extends JPanel {
 	/**
@@ -15,40 +17,47 @@ public class MenuPanel extends JPanel {
 	public JButton easyButton;
 	public JButton mediumButton;
 	public JButton hardButton;
-	public JButton logoutButton;
+	private JButton logoutButton;
     public MenuPanel() {
         setBackground(Color.BLACK);
         setForeground(Color.WHITE);
         setLayout(null);
         
         easyButton = new JButton("Easy");
+        easyButton.setFont(new Font("Impact", Font.PLAIN, 24));
         easyButton.setActionCommand("Easy");
-        easyButton.setBounds(169, 125, 85, 21);
+        easyButton.setBounds(329, 299, 145, 43);
         easyButton.setBackground(Color.GREEN);
         add(easyButton);
         
         mediumButton = new JButton("Medium");
+        mediumButton.setFont(new Font("Impact", Font.PLAIN, 24));
         mediumButton.setActionCommand("Medium");
         mediumButton.setBackground(Color.ORANGE);
-        mediumButton.setBounds(169, 156, 85, 21);
+        mediumButton.setBounds(329, 365, 145, 43);
         add(mediumButton);
         
         hardButton = new JButton("Hard");
+        hardButton.setFont(new Font("Impact", Font.PLAIN, 24));
         hardButton.setActionCommand("Hard");
         hardButton.setForeground(Color.BLACK);
         hardButton.setBackground(Color.RED);
-        hardButton.setBounds(169, 187, 85, 21);
+        hardButton.setBounds(329, 427, 145, 43);
         add(hardButton);
         
         JLabel levelLabel = new JLabel("Choose Level");
-        levelLabel.setFont(new Font("Impact", Font.PLAIN, 26));
+        levelLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        levelLabel.setFont(new Font("Impact", Font.PLAIN, 45));
         levelLabel.setForeground(Color.WHITE);
-        levelLabel.setBounds(143, 68, 145, 33);
+        levelLabel.setBounds(262, 175, 274, 82);
         add(levelLabel);
         
         logoutButton = new JButton("Logout");
-        logoutButton.setForeground(Color.RED);
-        logoutButton.setBounds(344, 24, 85, 21);
+        logoutButton.setToolTipText("");
+        logoutButton.setForeground(Color.DARK_GRAY);
+        logoutButton.setFont(new Font("Impact", Font.PLAIN, 20));
+        logoutButton.setBackground(Color.RED);
+        logoutButton.setBounds(614, 91, 127, 43);
         add(logoutButton);
     }
 
