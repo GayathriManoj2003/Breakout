@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
+	private static Player currentPlayer;
     public static void main(String[] args) {
     	BreakoutGameFactory factory = new BreakoutGameFactory();
         JFrame frame = new JFrame("Breakout Game");
@@ -21,8 +22,9 @@ public class Main {
 
         // Add panels to cardPanel
         cardPanel.add(login, "Login");
-        cardPanel.add(menuPanel, "MenuPanel");
         cardPanel.add(signup, "SignUp");
+        cardPanel.add(menuPanel, "MenuPanel");
+        
 
         // Add cardPanel to frame
         frame.add(cardPanel);
@@ -30,24 +32,57 @@ public class Main {
         // Display the frame
         frame.setVisible(true);
 
-        // Handle switching between panels
-        menuPanel.setStartGameAction(e -> {
-            String command = e.getActionCommand();
-            GamePanel gameLevelPanel = factory.getGameInstance(command);
+        menuPanel.setPlayGameAction(e -> {
+        	LevelPanel levelPanel = new LevelPanel();
+            cardPanel.add(levelPanel, "LevelPanel");
+      
+            levelPanel.setStartGameAction(event -> {
+                String command = e.getActionCommand();
+                currentPlayer.setLevel(command);
+                GamePanel gameLevelPanel = factory.getGameInstance(command);
 
-            cardPanel.add(gameLevelPanel, "GamePanel");
+                cardPanel.add(gameLevelPanel, "GamePanel");
 
-            cardLayout.show(cardPanel, "GamePanel");
+                cardLayout.show(cardPanel, "GamePanel");
+            });
+
+            levelPanel.setBackAction(event -> {
+            	cardLayout.show(cardPanel, "MenuPanel");
+            });
+            levelPanel.setLogoutAction(event -> {
+            	System.out.println("Current Player: " + currentPlayer.getUsername() + " Logging Out.");
+            	currentPlayer = null;
+            	cardLayout.show(cardPanel, "Login");
+            });
+            cardLayout.show(cardPanel, "LevelPanel");
         });
+ 
+        menuPanel.setLogoutAction(event -> {
+        	System.out.println("Current Player: " + currentPlayer.getUsername() + " Logging Out.");
+        	currentPlayer = null;
+        	cardLayout.show(cardPanel, "Login");
+        });
+
         login.setSignUpAction(e -> {
             cardLayout.show(cardPanel, "SignUp");
         });
         login.setLoginAction(e -> {
-            cardLayout.show(cardPanel, "MenuPanel");
+        	Player player = login.verifyPlayer();
+        	if( player != null ) {
+        		currentPlayer = player;
+        	    System.out.println("Current Player: " + currentPlayer.getUsername() + " Logged In.");
+        		menuPanel.setUsername(currentPlayer.getUsername());
+        		cardLayout.show(cardPanel, "MenuPanel");
+        	}
         });
         signup.setGoToLoginAction(e -> {
             cardLayout.show(cardPanel, "Login");
         });
-        menuPanel.setLogoutAction(e -> cardLayout.show(cardPanel, "Login"));
+        signup.setSubmitAction(e -> {
+        	int res = signup.submitDataToDatabase();
+        	if( res == 0 ) {
+        		cardLayout.show(cardPanel, "Login");
+        	}
+        });
     }
 }
