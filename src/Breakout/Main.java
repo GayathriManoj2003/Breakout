@@ -63,6 +63,21 @@ public class Main {
         	cardLayout.show(cardPanel, "Login");
         });
 
+        menuPanel.setLeaderboardAction( e -> {
+        	Leaderboard leaderboard = new Leaderboard();
+            cardPanel.add(leaderboard, "Leaderboard");
+
+            leaderboard.setBackAction(event -> {
+            	cardLayout.show(cardPanel, "MenuPanel");
+            });
+            leaderboard.setLogoutAction(event -> {
+            	System.out.println("Current Player: " + currentPlayer.getUsername() + " Logging Out.");
+            	currentPlayer = null;
+            	cardLayout.show(cardPanel, "Login");
+            });
+            cardLayout.show(cardPanel, "Leaderboard");
+        })
+;
         login.setSignUpAction(e -> {
             cardLayout.show(cardPanel, "SignUp");
         });

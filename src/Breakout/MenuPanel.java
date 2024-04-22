@@ -16,6 +16,7 @@ public class MenuPanel extends JPanel {
 	private JButton btnLeaderboard;
 	private JButton btnPlayGame;
     private JLabel lblNewLabel;
+    private JButton btnMyGames;
     public MenuPanel() {
         setBackground(Color.BLACK);
         setForeground(Color.WHITE);
@@ -33,7 +34,7 @@ public class MenuPanel extends JPanel {
         logoutButton.setForeground(new Color(255, 255, 204));
         logoutButton.setFont(new Font("Impact", Font.PLAIN, 20));
         logoutButton.setBackground(Color.RED);
-        logoutButton.setBounds(300, 489, 209, 58);
+        logoutButton.setBounds(300, 560, 209, 58);
         add(logoutButton);
         
         lblNewLabel = new JLabel("Welcome " + username);
@@ -56,18 +57,31 @@ public class MenuPanel extends JPanel {
         btnPlayGame.setFont(new Font("Impact", Font.PLAIN, 20));
         btnPlayGame.setBounds(300, 323, 209, 58);
         add(btnPlayGame);
+        
+        btnMyGames = new JButton("My Games");
+        btnMyGames.setForeground(Color.WHITE);
+        btnMyGames.setFont(new Font("Impact", Font.PLAIN, 20));
+        btnMyGames.setBackground(new Color(75, 0, 130));
+        btnMyGames.setBounds(300, 482, 209, 58);
+        add(btnMyGames);
     }
+
     public void setUsername(String username) {
         System.out.println("Current Player: " + username + " Received.");
     	this.username = username;
         lblNewLabel.setText("Welcome " + username);
     }
+
     public void setPlayGameAction(ActionListener actionListener) {
     	btnPlayGame.addActionListener(actionListener);
     }
     
     public void setLeaderboardAction(ActionListener actionListener) {
     	btnLeaderboard.addActionListener(actionListener);
+    }
+    
+    public void setMyGamesAction(ActionListener actionListener) {
+    	btnMyGames.addActionListener(actionListener);
     }
 
     public void setLogoutAction(ActionListener actionListener) {
