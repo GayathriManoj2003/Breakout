@@ -89,33 +89,32 @@ public class GameHistory extends JPanel {
     	this.username = username;
     }
     private void fetchAndDisplayLeaderboard() {
-    	DefaultTableModel model = new DefaultTableModel(new Object[]{"RANK", "USERNAME", "SCORE", "DURATION"}, 0);
+    	DefaultTableModel model = new DefaultTableModel(new Object[]{"SNO.", "TIMESTAMP", "SCORE", "DURATION"}, 0);
     
-        model.addRow(new Object[]{"Rank", "Username", "Score", "Duration"});
+        model.addRow(new Object[]{"SNO.", "SCORE", "DURATION", "TIMESTAMP"});
         try {
             // Connect to your SQL database
         	Connection connection = ConnectionManager.getConnection();
         	// Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/your_database", "username", "password");
 
         	String selectedGameLevel = comboBox.getSelectedItem().toString();
-        	System.out.println("Leaderboard Selected Level: " + selectedGameLevel);
+        	System.out.println("History Selected Level: " + selectedGameLevel);
             String query = "SELECT StartGame_Timestamp, Score,\r\n"
             		+ "TIMEDIFF(EndGame_Timestamp, StartGame_Timestamp) AS Duration\r\n"
             		+ "FROM Score WHERE Game_Level = ? AND Username = ? ORDER BY StartGame_Timestamp DESC LIMIT 8;";
      
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, selectedGameLevel);
-            statement.setString(1, this.username);
+            statement.setString(2, this.username);
             ResultSet resultSet = statement.executeQuery();
 
             // Populate data into the model
             int rank = 1;
             while (resultSet.next()) {
-                String username = resultSet.getString("Username");
                 int score = resultSet.getInt("Score");
+                String time = resultSet.getString("StartGame_Timestamp");
                 String duration = resultSet.getString("Duration");
-                System.out.println(username + score + duration);
-                model.addRow(new Object[]{rank++, username, score, duration});
+                model.addRow(new Object[]{rank++, score, duration, time});
             }
 
             // Set the model to the JTable
