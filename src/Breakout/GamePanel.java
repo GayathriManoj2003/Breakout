@@ -3,14 +3,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public abstract class GamePanel extends JPanel {
-    private GameState currentState;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private GameState currentState;
     private PlayingState playingState;
     private PausedState pausedState;
     private QuitState	quitState;
-    private String message;
-
+    private Timer timer;
+    
     public GamePanel() {
         this.playingState = new PlayingState();
         this.pausedState = new PausedState();
@@ -45,6 +50,9 @@ public abstract class GamePanel extends JPanel {
             }
         });
 
+        timer = new Timer( 20, new GameCycle());
+        timer.start();
+
         currentState = pausedState;
         updateGameState();
     }
@@ -52,6 +60,7 @@ public abstract class GamePanel extends JPanel {
     public void setCurrentState(GameState state) {
         currentState = state;
         updateGameState();
+        repaint();
     }
 
     public void setPlayingState() {
@@ -59,24 +68,44 @@ public abstract class GamePanel extends JPanel {
     }
     private void updateGameState() {
         if (currentState instanceof PlayingState) {
-            setMessage("Game is playing. Press 'P' to pause or 'Q' to quit.");
+            currentState.setMessage("Game is playing. Press 'P' to pause or 'Q' to quit.");
         } else if (currentState instanceof PausedState) {
-            setMessage("Game is paused. Press ENTER to resume.");
+            currentState.setMessage("Game is paused. Press ENTER to resume.");
         } else if (currentState instanceof QuitState) {
-            setMessage("Quit game");
+            currentState.setMessage("Quit game");
         }
     }
+    
+    private class GameCycle implements ActionListener {
 
-    public void setMessage(String message) {
-        this.message = message;
-        repaint(); // Repaint the panel to update the message
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            playingState.timeStep();
+            repaint();
+        }
+
     }
-
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         // Playing paint
-        
-        g.drawString(message, 50, 50);
+        if( currentState instanceof PlayingState ) {
+        	var g2d = (Graphics2D) g;
+
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+
+            g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
+                    RenderingHints.VALUE_RENDER_QUALITY);
+
+            playingState.drawObjects(g2d);
+
+            Toolkit.getDefaultToolkit().sync();
+        	System.out.println( "Playing State");
+        } else {
+            g.drawString(currentState.getMessage(), 50, 50);
+            System.out.println( "Message is: "+ currentState.getMessage());
+        }
     }
 }
