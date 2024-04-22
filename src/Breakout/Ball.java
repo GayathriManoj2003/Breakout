@@ -1,16 +1,23 @@
 package Breakout;
 
+import java.awt.Color;
+
 public class Ball {
-	int posX;
-	int posY;
-	int velX;
-	int velY;
+	private int posX;
+	private int posY;
+	private int velX;
+	private int velY;
+	private Color color;
+	private int radius;
+
 	Ball() {}
 	Ball( int posX, int posY, int velX, int velY) {
 		this.posX = posX;
 		this.posY = posY;
 		this.velX = velX;
 		this.velY = velY;
+		this.color = Color.YELLOW;
+		this.radius = 20;
 	}
 	public int getPosX() {
 		return posX;
@@ -35,5 +42,17 @@ public class Ball {
 	}
 	public void setVelY(int velY) {
 		this.velY = velY;
+	}
+	public Color getColor() {
+		return color;
+	}
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	public int getRadius() {
+		return radius;
+	}
+	public void setRadius(int radius) {
+		this.radius = radius;
 	}
 }
