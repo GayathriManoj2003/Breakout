@@ -1,3 +1,5 @@
+package Breakout;
+
 import java.awt.Color;
 
 public class PaddleModel {
