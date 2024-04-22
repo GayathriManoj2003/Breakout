@@ -10,13 +10,15 @@ class PlayingState implements GameState {
 	private BallController ballController;
 	private PaddleController paddleController;
 	private BrickController brickController;
+	private CollisionHandler collisionHandler;
 	// Create objects of Controllers within constructor of Playing state.
 	// Also create collision handler object
 	
 	PlayingState( ActionMap actionMap ) {
-		this.ballController = new BallController( 0, 0, 10, 10);
+		this.ballController = new BallController( 300, 300, 10, -10);
 		this.paddleController = new PaddleController(800, 600, 100, 20);
 		this.brickController = new BrickController(800, 240);
+		this.collisionHandler = new CollisionHandler();
 
 		// // Register Key Bindings
 
@@ -55,6 +57,8 @@ class PlayingState implements GameState {
 	public void timeStep() {
 		
 		ballController.moveBall();
+		int res = collisionHandler.handleCollision(ballController, paddleController, brickController);
+		System.out.println("Collision res: " + res);
 		// Move Paddle Here
 		
 		// Check Ball Boundaries within CollionHandler
