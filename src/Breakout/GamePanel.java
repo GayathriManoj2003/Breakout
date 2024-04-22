@@ -14,11 +14,16 @@ public abstract class GamePanel extends JPanel {
     private PlayingState playingState;
     private PausedState pausedState;
     private QuitState	quitState;
+    private ShowScoreState scoreState;
+    private Player player;
     private Timer timer;
+    private JButton b1;
+    private int score;
     
     public GamePanel() {
         this.pausedState = new PausedState();
         this.quitState = new QuitState();
+        this.scoreState = new ShowScoreState();
 
         // Register Key Bindings
         InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
@@ -58,6 +63,8 @@ public abstract class GamePanel extends JPanel {
 
         currentState = pausedState;
         updateGameState();
+        b1 = new JButton();
+        
     }
 
     public void setCurrentState(GameState state) {
@@ -71,7 +78,6 @@ public abstract class GamePanel extends JPanel {
     }
     private void updateGameState() {
         if (currentState instanceof PlayingState) {
-            currentState.setMessage("Game is playing. Press 'P' to pause or 'Q' to quit.");
             timer.start();
         } else if (currentState instanceof PausedState) {
             currentState.setMessage("Game is paused. Press ENTER to resume.");
@@ -79,17 +85,35 @@ public abstract class GamePanel extends JPanel {
         } else if (currentState instanceof QuitState) {
             currentState.setMessage("Quit game");
             timer.stop();
+            b1.doClick();
+        }	else if (currentState instanceof ShowScoreState) {
+            currentState.setMessage("Game Over, Your Score is: " + score);
+            JButton b2 = new JButton("Exit");
+            b2.setBounds(340, 360, 100, 40);
+            add(b2);
+        	b2.addActionListener( event -> {
+        		b1.doClick();
+        	});
+            timer.stop();
         }
     }
-    
+    public void setPlayer( Player p ) {
+    	this.player = p;
+    }
     private class GameCycle implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            playingState.timeStep();
+            int ret = playingState.timeStep();
+            if( ret == 1 ) {
+            	// gameOver
+            	timer.stop();
+            	score = playingState.score;
+            	System.out.println("Game Over: Ball Out of Scope, Score = " + score);
+            	setCurrentState(scoreState);
+            }
             repaint();
         }
-
     }
     
     @Override
@@ -113,10 +137,13 @@ public abstract class GamePanel extends JPanel {
         	Font font = new Font("Impact", Font.PLAIN, 25);
             g.setFont(font);
         	g.setColor(Color.BLACK);
-            g.drawString(currentState.getMessage(), 200, 320);
+            g.drawString(currentState.getMessage(), 240, 320);
 //            System.out.println( "Message is: "+ currentState.getMessage());
         }
 
         Toolkit.getDefaultToolkit().sync();
+    }
+    public void setMenuAction(ActionListener actionListener) {
+		b1.addActionListener(actionListener);
     }
 }
