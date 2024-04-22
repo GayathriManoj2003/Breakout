@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
-import java.awt.event.ActionEvent;
 
 public class Leaderboard extends JPanel {
 	/**
