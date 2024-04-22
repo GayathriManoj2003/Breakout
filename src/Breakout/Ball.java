@@ -16,7 +16,7 @@ public class Ball {
 		this.posY = posY;
 		this.velX = velX;
 		this.velY = velY;
-		this.color = Color.YELLOW;
+		this.color = Color.BLUE;
 		this.radius = 12;
 	}
 	public int getPosX() {
