@@ -9,12 +9,14 @@ class PlayingState implements GameState {
 	private String message;
 	private BallController ballController;
 	private PaddleController paddleController;
+	private BrickController brickController;
 	// Create objects of Controllers within constructor of Playing state.
 	// Also create collision handler object
 	
 	PlayingState( ActionMap actionMap ) {
 		this.ballController = new BallController( 0, 0, 10, 10);
 		this.paddleController = new PaddleController(800, 600, 100, 20);
+		this.brickController = new BrickController(800, 240);
 
 		// // Register Key Bindings
 
@@ -68,6 +70,7 @@ class PlayingState implements GameState {
 		
 		paddleController.drawPaddle(g2d);
 		ballController.drawBall(g2d);
+		brickController.drawBricks(g2d);
     }
 	
 	@Override
