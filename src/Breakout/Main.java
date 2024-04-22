@@ -2,8 +2,6 @@ package Breakout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class Main {
 	private static Player currentPlayer;
@@ -21,13 +19,11 @@ public class Main {
         // Create CardLayout
         CardLayout cardLayout = new CardLayout();
         JPanel cardPanel = new JPanel(cardLayout);
-        LevelPanel levelPanel = new LevelPanel();
 
         // Add panels to cardPanel
         cardPanel.add(login, "Login");
         cardPanel.add(signup, "SignUp");
         cardPanel.add(menuPanel, "MenuPanel");
-        cardPanel.add(levelPanel, "LevelPanel");
         
 
         // Add cardPanel to frame
@@ -37,28 +33,32 @@ public class Main {
         frame.setVisible(true);
 
         menuPanel.setPlayGameAction(e -> {
+            LevelPanel levelPanel = new LevelPanel();
+            levelPanel.setStartGameAction(event -> {
+                String command = event.getActionCommand();
+                currentPlayer.setLevel(command);
+                GamePanel gameLevelPanel = factory.getGameInstance(command);
+                System.out.println("New game of type: " + command);
+
+                cardPanel.add(gameLevelPanel, "GamePanel");
+                cardLayout.show(cardPanel, "GamePanel");
+            });
+
+            levelPanel.setBackAction(event -> {
+            	cardLayout.show(cardPanel, "MenuPanel");
+            });
+
+            levelPanel.setLogoutAction(event -> {
+            	System.out.println("Current Player: " + currentPlayer.getUsername() + " Logging Out.");
+            	currentPlayer = null;
+            	cardLayout.show(cardPanel, "Login");
+            });
+
+            cardPanel.add(levelPanel, "LevelPanel");
             cardLayout.show(cardPanel, "LevelPanel");
         });
         
-        levelPanel.setStartGameAction(event -> {
-            String command = event.getActionCommand();
-            currentPlayer.setLevel(command);
-            GamePanel gameLevelPanel = factory.getGameInstance(command);
-            System.out.println("New game of type: " + command);
-
-            cardPanel.add(gameLevelPanel, "GamePanel");
-            cardLayout.show(cardPanel, "GamePanel");
-        });
-
-        levelPanel.setBackAction(event -> {
-        	cardLayout.show(cardPanel, "MenuPanel");
-        });
-
-        levelPanel.setLogoutAction(event -> {
-        	System.out.println("Current Player: " + currentPlayer.getUsername() + " Logging Out.");
-        	currentPlayer = null;
-        	cardLayout.show(cardPanel, "Login");
-        });
+        
  
         menuPanel.setLogoutAction(event -> {
         	System.out.println("Current Player: " + currentPlayer.getUsername() + " Logging Out.");
@@ -80,8 +80,8 @@ public class Main {
             	cardLayout.show(cardPanel, "Login");
             });
             cardLayout.show(cardPanel, "Leaderboard");
-        })
-;
+        });
+
         login.setSignUpAction(e -> {
             cardLayout.show(cardPanel, "SignUp");
         });
