@@ -22,4 +22,9 @@ class CollisionHandler {
 		}
 		return 0;
 	}
+	public static boolean checkBallBrickCollision(int ballX, int ballY, int ballWidth, int ballHeight, int brickX, int brickY, int brickWidth, int brickHeight) {
+        Rectangle ballRect = new Rectangle(ballX, ballY, ballWidth, ballHeight);
+        Rectangle brickRect = new Rectangle(brickX, brickY, brickWidth, brickHeight);
+        return ballRect.intersects(brickRect);
+    }
 }

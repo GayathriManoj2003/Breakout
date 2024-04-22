@@ -12,7 +12,7 @@ class PlayingState implements GameState {
     public int score;
 
     PlayingState(ActionMap actionMap) {
-        this.ballController = new BallController(0, 0, 10, 10);
+        this.ballController = new BallController(400,500, 10, 10);
         this.paddleController = new PaddleController(800, 600, 100, 20);
         this.brickController = new BrickController(800, 240);
         this.score = 0;
@@ -43,8 +43,9 @@ class PlayingState implements GameState {
         
         int ret = CollisionHandler.handleBallWallCollision(ballController);
         
-        if( ret == 1 )
-        	return 1;
+        if (ret == 1)
+            return 1;
+
         // Check for paddle collision
         if (CollisionHandler.checkBallPaddleCollision(ballController.getBallX(), ballController.getBallY(), ballController.getBallRadius(), ballController.getBallRadius(),
                 paddleController.getPaddleX(), paddleController.getPaddleY(), paddleController.getPaddleW(), paddleController.getPaddleH())) {
@@ -52,12 +53,26 @@ class PlayingState implements GameState {
         }
 
         // Check for brick collision
-        // Logic for brick collision with the ball goes here
+        Brick[][] bricks = brickController.getBricks();
+        for (int i = 0; i < bricks.length; i++) {
+            for (int j = 0; j < bricks[i].length; j++) {
+                Brick brick = bricks[i][j];
+                if (brick != null && brick.isVisible()) {
+                    if (CollisionHandler.checkBallBrickCollision(ballController.getBallX(), ballController.getBallY(), ballController.getBallRadius(), ballController.getBallRadius(),
+                            brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight())) {
+                        // Handle collision
+                        brick.setVisible(false); // Remove brick
+                        ballController.reverseBallDirY(); // Reverse ball direction (you may adjust this based on your game's logic)
+                        score += 5; // Increment score
+                    }
+                }
+            }
+        }
 
         // Update positions of other game objects (if any)
         return 0;
-
     }
+
 
     public void drawObjects(Graphics2D g2d) {
         paddleController.drawPaddle(g2d);

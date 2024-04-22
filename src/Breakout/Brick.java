@@ -1,4 +1,3 @@
-// Brick.java
 package Breakout;
 
 import java.awt.*;
@@ -7,6 +6,7 @@ public class Brick {
     private int x, y;
     private int width, height;
     private Color color;
+    private boolean visible;
     private BrickView brickView;
 
     public Brick(int x, int y, int width, int height, Color color) {
@@ -15,11 +15,14 @@ public class Brick {
         this.width = width;
         this.height = height;
         this.color = color;
+        this.visible = true;
         this.brickView = new BrickView();
     }
 
     public void draw(Graphics2D g) {
-        brickView.drawBrick(g, x, y, width, height, color);
+        if (visible) {
+            brickView.drawBrick(g, x, y, width, height, color);
+        }
     }
 
     public int getX() {
@@ -40,5 +43,17 @@ public class Brick {
 
     public Color getColor() {
         return color;
+    }
+    
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

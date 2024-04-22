@@ -23,6 +23,9 @@ public class BrickController {
             }
         }
     }
+    public Brick[][] getBricks() {
+        return bricks;
+    }
 
     public void drawBricks(Graphics2D g) {
         for (int row = 0; row < bricks.length; row++) {
