@@ -8,7 +8,7 @@ class CollisionHandler {
         Rectangle paddleRect = new Rectangle(paddleX, paddleY, paddleWidth, paddleHeight);
         return ballRect.intersects(paddleRect);
     }
-	public static int handleBallWallCollision( BallController ballController, PaddleController paddleController, BrickController brickController) {
+	public static int handleBallWallCollision( BallController ballController) {
 		if( ballController.getBallX() < 0 || (ballController.getBallX() + ballController.getBallRadius() )> 800 ) {
 			ballController.reverseBallDirX();
 		}
