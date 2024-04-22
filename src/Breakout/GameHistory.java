@@ -19,16 +19,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class Leaderboard extends JPanel {
-	/**
-	 * 
-	 */
+public class GameHistory extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JButton logoutButton;
+	private String username;
 	private JButton btnBack;
-	private JTable leaderboardTable;
+	private JTable historyTable;
 	private JComboBox<String> comboBox;
-    public Leaderboard() {
+    public GameHistory() {
         setBackground(Color.BLACK);
         setForeground(Color.WHITE);
         setLayout(null);
@@ -55,20 +53,20 @@ public class Leaderboard extends JPanel {
         btnBack.setBackground(new Color(51, 255, 255));
         add(btnBack);
         
-        leaderboardTable = new JTable();
-        leaderboardTable.setBorder(null);
-        leaderboardTable.setEnabled(false);
-        leaderboardTable.setRowSelectionAllowed(false);
-        leaderboardTable.setBackground(Color.BLACK);
-        leaderboardTable.setForeground(Color.WHITE);
-        leaderboardTable.setShowGrid(false);
-        leaderboardTable.setShowHorizontalLines(false);
-        leaderboardTable.setShowVerticalLines(false);
-        leaderboardTable.setFont(new Font("Arial", Font.PLAIN, 15));
-        leaderboardTable.setBounds(116, 250, 600, 380);
-        leaderboardTable.setRowHeight(30);
+        historyTable = new JTable();
+        historyTable.setBorder(null);
+        historyTable.setEnabled(false);
+        historyTable.setRowSelectionAllowed(false);
+        historyTable.setBackground(Color.BLACK);
+        historyTable.setForeground(Color.WHITE);
+        historyTable.setShowGrid(false);
+        historyTable.setShowHorizontalLines(false);
+        historyTable.setShowVerticalLines(false);
+        historyTable.setFont(new Font("Arial", Font.PLAIN, 15));
+        historyTable.setBounds(116, 250, 600, 380);
+        historyTable.setRowHeight(30);
 
-        add(leaderboardTable);
+        add(historyTable);
         
         comboBox = new JComboBox<String>();
         comboBox.setForeground(Color.DARK_GRAY);
@@ -87,7 +85,9 @@ public class Leaderboard extends JPanel {
         
         fetchAndDisplayLeaderboard();
     }
-    
+    public void setUserName(String username) {
+    	this.username = username;
+    }
     private void fetchAndDisplayLeaderboard() {
     	DefaultTableModel model = new DefaultTableModel(new Object[]{"RANK", "USERNAME", "SCORE", "DURATION"}, 0);
     
@@ -99,15 +99,13 @@ public class Leaderboard extends JPanel {
 
         	String selectedGameLevel = comboBox.getSelectedItem().toString();
         	System.out.println("Leaderboard Selected Level: " + selectedGameLevel);
-            String query = 
-            		"SELECT Username,\r\n"
-            		+ "Score,\r\n"
+            String query = "SELECT StartGame_Timestamp, Score,\r\n"
             		+ "TIMEDIFF(EndGame_Timestamp, StartGame_Timestamp) AS Duration\r\n"
-            		+ "FROM Score WHERE Game_Level = ? ORDER BY Score DESC,\r\n"
-            		+ "TIMEDIFF(EndGame_Timestamp, StartGame_Timestamp) ASC LIMIT 10;";
+            		+ "FROM Score WHERE Game_Level = ? AND Username = ? ORDER BY StartGame_Timestamp DESC LIMIT 8;";
      
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, selectedGameLevel);
+            statement.setString(1, this.username);
             ResultSet resultSet = statement.executeQuery();
 
             // Populate data into the model
@@ -121,7 +119,7 @@ public class Leaderboard extends JPanel {
             }
 
             // Set the model to the JTable
-            leaderboardTable.setModel(model);
+            historyTable.setModel(model);
 
             // Close resources
             resultSet.close();
