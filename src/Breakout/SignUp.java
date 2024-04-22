@@ -16,6 +16,10 @@ import java.awt.SystemColor;
 import javax.swing.JPasswordField;
 
 public class SignUp extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	public JButton btnGoToLogin;
 	public JButton btnSubmit;

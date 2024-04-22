@@ -17,6 +17,10 @@ import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 
 public class Login extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 	private JPasswordField passwordField;
 	public JButton btnNewButton;

@@ -2,10 +2,13 @@ package Breakout;
 
 import java.awt.Color;
 
-import javax.swing.JFrame;
-
 public class EasyGamePanel extends GamePanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public EasyGamePanel() {
-        setBackground(Color.GREEN);
+        setBackground(Color.WHITE);
     }
 }
