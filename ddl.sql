@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS Score (
     Username VARCHAR(20),
     Game_Level   ENUM("Easy", "Medium", "Hard"),
     Score   INT,
-    Game_Timestamp  TIMESTAMP,
+    StartGame_Timestamp  TIMESTAMP,
+    EndGame_Timestamp  TIMESTAMP,
     PRIMARY KEY(Username, Game_Level, Game_Timestamp),
     FOREIGN KEY(Username) REFERENCES Player(Username)
 );
