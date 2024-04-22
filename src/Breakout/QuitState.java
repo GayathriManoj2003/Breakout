@@ -1,12 +1,15 @@
 package Breakout;
 
-import javax.swing.*;
-import java.awt.event.KeyEvent;
-
 class QuitState implements GameState {
-//    @Override
-//    public void handleKey(GameFrame frame, KeyEvent e) {
-//        // Handle quitting the game
-//        System.exit(0);
-//    }
+	private String message;
+	@Override
+	public void setMessage(String message) {
+		// TODO Auto-generated method stub
+		this.message = "Quit Game" ;
+	}
+	@Override
+	public String getMessage() {
+		// TODO Auto-generated method stub
+		return this.message;
+	}
 }
