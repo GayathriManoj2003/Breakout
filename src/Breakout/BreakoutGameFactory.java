@@ -6,7 +6,6 @@ public class BreakoutGameFactory implements GameFactory {
             return new HardGamePanel();
         else if (type.equals("Easy"))
             return new EasyGamePanel();
-
         // Default return if type doesn't match
         return new MediumGamePanel();
     }
