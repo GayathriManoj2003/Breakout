@@ -75,6 +75,8 @@ public abstract class GamePanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        // Playing paint
+        
         g.drawString(message, 50, 50);
     }
 }
