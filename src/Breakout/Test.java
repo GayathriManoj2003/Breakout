@@ -20,8 +20,6 @@ import javax.swing.JFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public class Test {
     public static void main(String[] args) {
@@ -42,7 +40,6 @@ public class Test {
 
     	String command = "Easy";
         GamePanel gameLevelPanel = factory.getGameInstance(command);
-        frame.addKeyListener(gameLevelPanel);
 
         cardPanel.add(gameLevelPanel, "GamePanel");
         cardLayout.show(cardPanel, "GamePanel");
