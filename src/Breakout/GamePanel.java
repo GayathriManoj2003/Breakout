@@ -17,17 +17,20 @@ public abstract class GamePanel extends JPanel {
     private Timer timer;
     
     public GamePanel() {
-        this.playingState = new PlayingState();
         this.pausedState = new PausedState();
         this.quitState = new QuitState();
 
         // Register Key Bindings
         InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = getActionMap();
+        this.playingState = new PlayingState(actionMap);
 
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0), "pause");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0), "quit");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "resume");
+
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "leftPressed");
+        inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "rightPressed");
 
         actionMap.put("pause", new AbstractAction() {
             @Override

@@ -40,6 +40,7 @@ public class PaddleController extends KeyAdapter {
     }
 
     public void drawPaddle(Graphics2D g2d) {
+//    	System.out.println("Paddle: " + getPaddleX() + " " + getPaddleY());
 		view.drawPaddle( g2d, getPaddleX(), getPaddleY(), getPaddleW(), getPaddleH());
 	}
 }

@@ -3,9 +3,7 @@ package Breakout;
 import java.awt.Graphics2D;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 class PlayingState implements GameState {
 	private String message;
@@ -14,29 +12,29 @@ class PlayingState implements GameState {
 	// Create objects of Controllers within constructor of Playing state.
 	// Also create collision handler object
 	
-	PlayingState() {
+	PlayingState( ActionMap actionMap ) {
 		this.ballController = new BallController( 0, 0, 10, 10);
-		this.paddleController = new PaddleController(60, 40, 100,5);
+		this.paddleController = new PaddleController(800, 600, 100, 20);
 
 		// // Register Key Bindings
-        // InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
-        // ActionMap actionMap = getActionMap();
-		// inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "leftPressed");
-        // inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "rightPressed");
 
-		// actionMap.put("leftPressed", new AbstractAction() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         paddleController.moveLeft();
-        //     }
-        // });
+		 actionMap.put("leftPressed", new AbstractAction() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 paddleController.moveLeft();
+                 System.out.println(paddleController.getPaddleX());
+//                 System.out.println("Here Left");
+             }
+         });
 
-        // actionMap.put("rightPressed", new AbstractAction() {
-        //     @Override
-        //     public void actionPerformed(ActionEvent e) {
-        //         paddleController.moveRight();
-        //     }
-        // });
+         actionMap.put("rightPressed", new AbstractAction() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+                 paddleController.moveRight();
+                 System.out.println(paddleController.getPaddleX());
+//                 System.out.println("Here Right");
+             }
+         });
 	}	
 	
 	// PlayingState( int ballX, int ballY, int ballVelX, int ballVelY) {
@@ -55,7 +53,6 @@ class PlayingState implements GameState {
 	public void timeStep() {
 		
 		ballController.moveBall();
-		
 		// Move Paddle Here
 		
 		// Check Ball Boundaries within CollionHandler

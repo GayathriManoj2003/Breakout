@@ -29,11 +29,11 @@ public class PaddleModel {
     }
 
     public int getPaddleW(){
-        return WIDTH;
+        return PADDLE_WIDTH;
     }
 
     public int getPaddleH(){
-        return HEIGHT;
+        return PADDLE_HEIGHT;
     }
 
     public void moveLeft() {
