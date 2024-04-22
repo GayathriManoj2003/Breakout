@@ -9,12 +9,14 @@ class PlayingState implements GameState {
     private BallController ballController;
     private PaddleController paddleController;
     private BrickController brickController;
+    public int score;
 
     PlayingState(ActionMap actionMap) {
         this.ballController = new BallController(0, 0, 10, 10);
         this.paddleController = new PaddleController(800, 600, 100, 20);
         this.brickController = new BrickController(800, 240);
-
+        this.score = 0;
+  
         actionMap.put("leftPressed", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,10 +37,14 @@ class PlayingState implements GameState {
         ballController.setVelY(velY);
     }
 
-    public void timeStep() {
+    public int timeStep() {
         // Move the ball
         ballController.moveBall();
         
+        int ret = CollisionHandler.handleBallWallCollision(ballController);
+        
+        if( ret == 1 )
+        	return 1;
         // Check for paddle collision
         if (CollisionHandler.checkBallPaddleCollision(ballController.getBallX(), ballController.getBallY(), ballController.getBallRadius(), ballController.getBallRadius(),
                 paddleController.getPaddleX(), paddleController.getPaddleY(), paddleController.getPaddleW(), paddleController.getPaddleH())) {
@@ -49,6 +55,7 @@ class PlayingState implements GameState {
         // Logic for brick collision with the ball goes here
 
         // Update positions of other game objects (if any)
+        return 0;
 
     }
 
