@@ -38,6 +38,9 @@ public class Main {
                 String command = event.getActionCommand();
                 currentPlayer.setLevel(command);
                 GamePanel gameLevelPanel = factory.getGameInstance(command);
+                gameLevelPanel.setMenuAction(ev -> {
+	            	cardLayout.show(cardPanel, "MenuPanel");
+	            });
                 System.out.println("New game of type: " + command);
 
                 cardPanel.add(gameLevelPanel, "GamePanel");
@@ -81,10 +84,30 @@ public class Main {
             });
             cardLayout.show(cardPanel, "Leaderboard");
         });
+        
+        menuPanel.setMyGamesAction( e -> {
+        	GameHistory gameHistory = new GameHistory();
+        	gameHistory.setUserName(currentPlayer.getUsername());
+        	
+            cardPanel.add(gameHistory, "GameHistory");
+
+            gameHistory.setBackAction(event -> {
+            	cardLayout.show(cardPanel, "MenuPanel");
+            });
+            
+            gameHistory.setLogoutAction(event -> {
+            	System.out.println("Current Player: " + currentPlayer.getUsername() + " Logging Out.");
+            	currentPlayer = null;
+            	cardLayout.show(cardPanel, "Login");
+            });
+
+            cardLayout.show(cardPanel, "GameHistory");
+        });
 
         login.setSignUpAction(e -> {
             cardLayout.show(cardPanel, "SignUp");
         });
+
         login.setLoginAction(e -> {
         	Player player = login.verifyPlayer();
         	if( player != null ) {
