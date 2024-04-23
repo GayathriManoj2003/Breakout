@@ -10,8 +10,9 @@ public class BallController {
 		this.ball = new Ball();
 		this.ballView = new BallView();
 	}
-	BallController( int posX, int posY, int velX, int velY) {
+	BallController( int posX, int posY, int velX, int velY, Color ballColor) {
 		this.ball = new Ball( posX, posY, velX, velY);
+		this.ball.setColor(ballColor);
 		this.ballView = new BallView();
 	}
 	int getBallX() {
