@@ -12,6 +12,6 @@ public class HardGamePanel extends GamePanel {
 	private static int ballVelocityY = 10;
 
 	public HardGamePanel() {
-		super( ballVelocityX, ballVelocityY, numberOfBrickRows, Color.BLUE, Color.RED);
+		super( ballVelocityX, ballVelocityY, numberOfBrickRows, 3, Color.BLUE, Color.RED);
     }
 }

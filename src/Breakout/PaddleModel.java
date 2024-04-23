@@ -45,13 +45,13 @@ public class PaddleModel {
 
     public void moveLeft() {
         if (paddleX > 0) {
-            paddleX -= 40;
+            paddleX -= 60;
         }
     }
 
     public void moveRight() {
         if (paddleX < WIDTH - PADDLE_WIDTH) {
-            paddleX += 40;
+            paddleX += 60;
         }
     }
 

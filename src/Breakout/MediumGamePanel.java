@@ -12,6 +12,6 @@ public class MediumGamePanel extends GamePanel {
 	private static int ballVelocityY = 10;
 
 	public MediumGamePanel() {
-		super( ballVelocityX, ballVelocityY, numberOfBrickRows, Color.BLUE, Color.ORANGE);
+		super( ballVelocityX, ballVelocityY, numberOfBrickRows, 2, Color.BLUE, Color.ORANGE);
     }
 }

@@ -12,7 +12,7 @@ public class EasyGamePanel extends GamePanel {
 	private static int ballVelocityY = 10;
 
 	public EasyGamePanel() {
-		super( ballVelocityX, ballVelocityY, numberOfBrickRows, Color.BLUE, Color.YELLOW);
+		super( ballVelocityX, ballVelocityY, numberOfBrickRows, 1, Color.BLUE, Color.YELLOW);
         setBackground(Color.WHITE);
     }
 }

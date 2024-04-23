@@ -11,11 +11,11 @@ class PlayingState implements GameState {
     private BrickController brickController;
     public int score;
 
-    PlayingState(ActionMap actionMap, int ballVelX, int ballVelY, int numberOfBrickRows, Color ballColor, Color brickColor) {
+    PlayingState(ActionMap actionMap, int ballVelX, int ballVelY, int numberOfBrickRows, Color ballColor, Color brickColor, int brickDurability) {
         this.ballController = new BallController(400, 500, ballVelX, ballVelY, ballColor);
         this.paddleController = new PaddleController(800, 600, 100, 20);
         int widthBrickRows = numberOfBrickRows*20;
-        this.brickController = new BrickController(800, widthBrickRows, brickColor);
+        this.brickController = new BrickController(800, widthBrickRows, brickColor, brickDurability);
         this.score = 0;
   
         actionMap.put("leftPressed", new AbstractAction() {
@@ -58,18 +58,18 @@ class PlayingState implements GameState {
             ballController.reverseBallDirY(); // Reverse ball direction if it hits the paddle
         }
 
-        // Check for brick collision
+     // Check for brick collision
         int bricks_exist = 0;
         Brick[][] bricks = brickController.getBricks();
         for (int i = 0; i < bricks.length; i++) {
             for (int j = 0; j < bricks[i].length; j++) {
                 Brick brick = bricks[i][j];
                 if (brick != null && brick.isVisible()) {
-                	bricks_exist++;
+                    bricks_exist++;
                     if (CollisionHandler.checkBallBrickCollision(ballController.getBallX(), ballController.getBallY(), ballController.getBallRadius(), ballController.getBallRadius(),
                             brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight())) {
                         // Handle collision
-                        brick.setVisible(false); // Remove brick
+                        brick.hit(); // Reduce durability
                         ballController.reverseBallDirY(); // Reverse ball direction (you may adjust this based on your game's logic)
                         score += 5; // Increment score
                         bricks_exist--;
@@ -77,6 +77,7 @@ class PlayingState implements GameState {
                 }
             }
         }
+
         
         if( bricks_exist == 0 ) {
         	return 1;

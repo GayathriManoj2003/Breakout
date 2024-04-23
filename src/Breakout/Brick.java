@@ -7,15 +7,17 @@ public class Brick {
     private int width, height;
     private Color color;
     private boolean visible;
+    private int durability; // New attribute
     private BrickView brickView;
 
-    public Brick(int x, int y, int width, int height, Color color) {
+    public Brick(int x, int y, int width, int height, Color color, int durability) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.color = color;
         this.visible = true;
+        this.durability = durability; // Initialize durability
         this.brickView = new BrickView();
     }
 
@@ -55,5 +57,16 @@ public class Brick {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+    
+    public int getDurability() {
+        return durability;
+    }
+
+    public void hit() {
+        durability--; // Decrement durability when hit
+        if (durability <= 0) {
+            visible = false; // Set brick to not visible when durability reaches 0
+        }
     }
 }

@@ -29,7 +29,7 @@ public abstract class GamePanel extends JPanel {
     private boolean isPaused;
     private long startPauseMilliseconds;
     
-    public GamePanel(int ballVelocityX, int ballVelocityY, int numberOfBrickRows, Color ballColor, Color brickColor) {
+    public GamePanel(int ballVelocityX, int ballVelocityY, int numberOfBrickRows, int brickDurability, Color ballColor, Color brickColor) {
         this.pausedState = new PausedState();
         this.quitState = new QuitState();
         this.scoreState = new ShowScoreState();
@@ -39,7 +39,7 @@ public abstract class GamePanel extends JPanel {
         // Register Key Bindings
         InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = getActionMap();
-        this.playingState = new PlayingState(actionMap, ballVelocityX, ballVelocityY, numberOfBrickRows, ballColor, brickColor);
+        this.playingState = new PlayingState(actionMap, ballVelocityX, ballVelocityY, numberOfBrickRows, ballColor, brickColor, brickDurability);
         this.startGameTimestamp = Timestamp.from(Instant.now());
 
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0), "pause");
