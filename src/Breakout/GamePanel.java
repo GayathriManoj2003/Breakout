@@ -29,7 +29,7 @@ public abstract class GamePanel extends JPanel {
     private boolean isPaused;
     private long startPauseMilliseconds;
     
-    public GamePanel() {
+    public GamePanel(int ballVelocityX, int ballVelocityY, int numberOfBrickRows, Color ballColor, Color brickColor) {
         this.pausedState = new PausedState();
         this.quitState = new QuitState();
         this.scoreState = new ShowScoreState();
@@ -39,7 +39,7 @@ public abstract class GamePanel extends JPanel {
         // Register Key Bindings
         InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = getActionMap();
-        this.playingState = new PlayingState(actionMap);
+        this.playingState = new PlayingState(actionMap, ballVelocityX, ballVelocityY, numberOfBrickRows, ballColor, brickColor);
         this.startGameTimestamp = Timestamp.from(Instant.now());
 
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0), "pause");
@@ -50,21 +50,36 @@ public abstract class GamePanel extends JPanel {
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "rightPressed");
 
         actionMap.put("pause", new AbstractAction() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
             public void actionPerformed(ActionEvent e) {
                 setCurrentState(pausedState);
             }
         });
 
         actionMap.put("quit", new AbstractAction() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -2847179244756254627L;
+
+			@Override
             public void actionPerformed(ActionEvent e) {
                 setCurrentState(quitState);
             }
         });
 
         actionMap.put("resume", new AbstractAction() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 349860883800250007L;
+
+			@Override
             public void actionPerformed(ActionEvent e) {
                 setCurrentState(playingState);
             }
@@ -102,6 +117,7 @@ public abstract class GamePanel extends JPanel {
     }
     private void updateGameState() {
         if (currentState instanceof PlayingState) {
+        	currentState.setMessage("Score: " + playingState.score);
             timer.start();
         } else if (currentState instanceof PausedState) {
             currentState.setMessage("Game is paused. Press ENTER to resume.");
@@ -159,12 +175,18 @@ public abstract class GamePanel extends JPanel {
         	
 
             playingState.drawObjects(g2d);
+            Font font = new Font("Impact", Font.PLAIN, 20);
+            g.setFont(font);
+
+        	currentState.setMessage("Score: " + playingState.score);
+            g.drawString(currentState.getMessage(), 360, 650);
 //        	System.out.println( "Playing State");
         } else {
         	playingState.drawObjects(g2d);
         	Font font = new Font("Impact", Font.PLAIN, 25);
             g.setFont(font);
         	g.setColor(Color.BLACK);
+
             g.drawString(currentState.getMessage(), 240, 320);
 //            System.out.println( "Message is: "+ currentState.getMessage());
         }
@@ -189,7 +211,7 @@ public abstract class GamePanel extends JPanel {
             ps.setTimestamp(4, this.startGameTimestamp);
             ps.setTimestamp(5, this.endGameTimestamp);
 			
-			int res = ps.executeUpdate();
+			ps.executeUpdate();
 		}	catch ( Exception e ) {
 			System.out.println("Error: " + e);
 		}
