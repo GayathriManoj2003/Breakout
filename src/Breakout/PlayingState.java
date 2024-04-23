@@ -43,11 +43,6 @@ class PlayingState implements GameState {
         });
     }
 
-    public void setBallVelocity(int velX, int velY) {
-        ballController.setVelX(velX);
-        ballController.setVelY(velY);
-    }
-
     public int timeStep() {
         // Move the ball
         ballController.moveBall();
