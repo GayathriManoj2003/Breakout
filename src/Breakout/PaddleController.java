@@ -1,18 +1,14 @@
 package Breakout;
 
-import java.awt.event.*;
 import java.awt.Graphics2D;
+import java.awt.event.*;
 
 public class PaddleController extends KeyAdapter {
-    PaddleModel model;
-    PaddleView view;
+    private PaddleModel model;
+    private PaddleView view;
 
-    public PaddleController(){
-        this.model = new PaddleModel();
-        this.view = new PaddleView();
-    }
     public PaddleController(int width, int height, int paddle_width, int paddle_height) {
-        this.model = new PaddleModel(width, height, paddle_width, paddle_height);
+        this.model = PaddleModel.getInstance(width, height, paddle_width, paddle_height); // Get the singleton instance with initialization
         this.view = new PaddleView();
     }
 
@@ -31,6 +27,7 @@ public class PaddleController extends KeyAdapter {
     public int getPaddleH() {
         return model.getPaddleH();
     }
+
     public void moveLeft() {
         model.moveLeft();
     }
@@ -40,7 +37,16 @@ public class PaddleController extends KeyAdapter {
     }
 
     public void drawPaddle(Graphics2D g2d) {
-//    	System.out.println("Paddle: " + getPaddleX() + " " + getPaddleY());
-		view.drawPaddle( g2d, getPaddleX(), getPaddleY(), getPaddleW(), getPaddleH());
-	}
+        view.drawPaddle(g2d, getPaddleX(), getPaddleY(), getPaddleW(), getPaddleH());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        if (keyCode == KeyEvent.VK_LEFT) {
+            moveLeft();
+        } else if (keyCode == KeyEvent.VK_RIGHT) {
+            moveRight();
+        }
+    }
 }
