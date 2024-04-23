@@ -11,21 +11,32 @@ class PlayingState implements GameState {
     private BrickController brickController;
     public int score;
 
-    PlayingState(ActionMap actionMap) {
-        this.ballController = new BallController(400,500, 5, 10);
+    PlayingState(ActionMap actionMap, int ballVelX, int ballVelY, int numberOfBrickRows, Color ballColor, Color brickColor) {
+        this.ballController = new BallController(400, 500, ballVelX, ballVelY, ballColor);
         this.paddleController = new PaddleController(800, 600, 100, 20);
-        this.brickController = new BrickController(800, 240);
+        int widthBrickRows = numberOfBrickRows*20;
+        this.brickController = new BrickController(800, widthBrickRows, brickColor);
         this.score = 0;
   
         actionMap.put("leftPressed", new AbstractAction() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -5078958172327309776L;
+
+			@Override
             public void actionPerformed(ActionEvent e) {
                 paddleController.moveLeft();
             }
         });
 
         actionMap.put("rightPressed", new AbstractAction() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 5831734143244893201L;
+
+			@Override
             public void actionPerformed(ActionEvent e) {
                 paddleController.moveRight();
             }
