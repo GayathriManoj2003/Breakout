@@ -22,7 +22,6 @@ public class BrickController {
             for (int col = 0; col < cols; col++) {
                 int x = col * 80 + 10;
                 int y = row * 20 + 10;
-                Color color = brickColor;
                 bricks[row][col] = new Brick(x, y, brickDurability);
             }
         }
