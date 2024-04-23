@@ -116,7 +116,6 @@ public class Leaderboard extends JPanel {
                 String username = resultSet.getString("Username");
                 int score = resultSet.getInt("Score");
                 String duration = resultSet.getString("Duration");
-                System.out.println(username + score + duration);
                 model.addRow(new Object[]{rank++, username, score, duration});
             }
 
