@@ -3,16 +3,16 @@ package Breakout;
 import java.awt.Color;
 
 public class PaddleModel {
-    public int WIDTH;
-    public int HEIGHT;
-    public int PADDLE_WIDTH;
-    public int PADDLE_HEIGHT;
-    public int paddleX;
-    public Color color;
+    private static PaddleModel instance;
 
-    PaddleModel(){}
+    private int WIDTH;
+    private int HEIGHT;
+    private int PADDLE_WIDTH;
+    private int PADDLE_HEIGHT;
+    private int paddleX;
+    private Color color;
 
-    public PaddleModel(int width, int height, int paddle_width, int paddle_height) {
+    private PaddleModel(int width, int height, int paddle_width, int paddle_height) {
         this.WIDTH = width;
         this.HEIGHT = height;
         this.PADDLE_WIDTH = paddle_width;
@@ -20,19 +20,26 @@ public class PaddleModel {
         paddleX = width / 2 - paddle_width / 2;
     }
 
+    public static PaddleModel getInstance(int width, int height, int paddle_width, int paddle_height) {
+        if (instance == null) {
+            instance = new PaddleModel(width, height, paddle_width, paddle_height);
+        }
+        return instance;
+    }
+
     public int getPaddleX() {
         return paddleX;
     }
 
-    public int getPaddleY(){
+    public int getPaddleY() {
         return HEIGHT - PADDLE_HEIGHT;
     }
 
-    public int getPaddleW(){
+    public int getPaddleW() {
         return PADDLE_WIDTH;
     }
 
-    public int getPaddleH(){
+    public int getPaddleH() {
         return PADDLE_HEIGHT;
     }
 
@@ -49,9 +56,10 @@ public class PaddleModel {
     }
 
     public Color getColor() {
-		return color;
-	}
-	public void setColor(Color color) {
-		this.color = color;
-	}
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
 }
