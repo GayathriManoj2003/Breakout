@@ -7,8 +7,11 @@ public class MediumGamePanel extends GamePanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private static int numberOfBrickRows = 8;
+	private static int ballVelocityX = 10;
+	private static int ballVelocityY = 10;
 
 	public MediumGamePanel() {
-        setBackground(Color.ORANGE);
+		super( ballVelocityX, ballVelocityY, numberOfBrickRows, Color.BLUE, Color.ORANGE);
     }
 }
