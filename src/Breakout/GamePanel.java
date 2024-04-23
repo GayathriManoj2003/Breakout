@@ -2,6 +2,10 @@ package Breakout;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.sql.Timestamp;  
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.time.Instant;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,20 +19,28 @@ public abstract class GamePanel extends JPanel {
     private PausedState pausedState;
     private QuitState	quitState;
     private ShowScoreState scoreState;
+    private Timestamp startGameTimestamp;
+    private Timestamp endGameTimestamp;
+    private int totalPausedTime;
     private Player player;
     private Timer timer;
     private JButton b1;
     private int score;
+    private boolean isPaused;
+    private long startPauseMilliseconds;
     
     public GamePanel() {
         this.pausedState = new PausedState();
         this.quitState = new QuitState();
         this.scoreState = new ShowScoreState();
+        this.totalPausedTime = 0;
+        this.isPaused = false;
 
         // Register Key Bindings
         InputMap inputMap = getInputMap(WHEN_IN_FOCUSED_WINDOW);
         ActionMap actionMap = getActionMap();
         this.playingState = new PlayingState(actionMap);
+        this.startGameTimestamp = Timestamp.from(Instant.now());
 
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_P, 0), "pause");
         inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0), "quit");
@@ -69,6 +81,18 @@ public abstract class GamePanel extends JPanel {
 
     public void setCurrentState(GameState state) {
         currentState = state;
+        if( state instanceof PausedState ) {
+        	if( this.isPaused == false ) {
+        		this.isPaused = true;
+        		this.startPauseMilliseconds = System.currentTimeMillis();
+        	}
+        } else {
+        	if( this.isPaused ) {
+        		this.isPaused = false;
+        		this.totalPausedTime += (System.currentTimeMillis() - startPauseMilliseconds);
+        		this.startPauseMilliseconds = 0;
+        	}
+        }
         updateGameState();
         repaint();
     }
@@ -97,8 +121,9 @@ public abstract class GamePanel extends JPanel {
             timer.stop();
         }
     }
-    public void setPlayer( Player p ) {
-    	this.player = p;
+    public void setPlayer( Player player ) {
+    	System.out.println(player.getUsername() + " in Play Game.");
+    	this.player = player;
     }
     private class GameCycle implements ActionListener {
 
@@ -110,6 +135,9 @@ public abstract class GamePanel extends JPanel {
             	timer.stop();
             	score = playingState.score;
             	System.out.println("Game Over: Ball Out of Scope, Score = " + score);
+            	endGameTimestamp = Timestamp.from(Instant.now());
+            	endGameTimestamp.setTime(endGameTimestamp.getTime() - totalPausedTime);
+            	insertScoreToDatabase();
             	setCurrentState(scoreState);
             }
             repaint();
@@ -145,5 +173,25 @@ public abstract class GamePanel extends JPanel {
     }
     public void setMenuAction(ActionListener actionListener) {
 		b1.addActionListener(actionListener);
+    }
+    public void insertScoreToDatabase() {
+		String username = player.getUsername();
+		String level = player.getLevel();
+        
+		try {
+			String query = "INSERT INTO Score VALUES (?, ?, ?, ?, ?);";
+            Connection connection = ConnectionManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(query);
+            
+            ps.setString(1, username);
+            ps.setString(2, level);
+            ps.setInt(3, score);
+            ps.setTimestamp(4, this.startGameTimestamp);
+            ps.setTimestamp(5, this.endGameTimestamp);
+			
+			int res = ps.executeUpdate();
+		}	catch ( Exception e ) {
+			System.out.println("Error: " + e);
+		}
     }
 }
