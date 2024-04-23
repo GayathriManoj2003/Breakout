@@ -9,7 +9,7 @@ public class BrickController {
     public BrickController() {
     	
     }
-    public BrickController( int width, int height) {
+    public BrickController( int width, int height, Color brickColor) {
         int rows = height/20;
         int cols = width/80;
         bricks = new Brick[rows][cols];
@@ -18,7 +18,7 @@ public class BrickController {
             for (int col = 0; col < cols; col++) {
                 int x = col * 80 + 10;
                 int y = row * 20 + 10;
-                Color color = Color.YELLOW;
+                Color color = brickColor;
                 bricks[row][col] = new Brick(x, y, 80, 20, color);
             }
         }
