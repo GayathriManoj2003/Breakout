@@ -38,6 +38,7 @@ public class Main {
                 String command = event.getActionCommand();
                 currentPlayer.setLevel(command);
                 GamePanel gameLevelPanel = factory.getGameInstance(command);
+                gameLevelPanel.setPlayer(currentPlayer);
                 gameLevelPanel.setMenuAction(ev -> {
 	            	cardLayout.show(cardPanel, "MenuPanel");
 	            });
