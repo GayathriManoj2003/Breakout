@@ -23,7 +23,7 @@ public class Brick {
 
     public void draw(Graphics2D g) {
         if (visible) {
-            brickView.drawBrick(g, x, y, width, height, color);
+            brickView.drawBrick(g, x, y, width, height, durability);
         }
     }
 
