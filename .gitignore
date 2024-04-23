@@ -1,2 +1,4 @@
 .classpath
 src/Breakout/ConnectionManager.java
+bin
+.metadata
