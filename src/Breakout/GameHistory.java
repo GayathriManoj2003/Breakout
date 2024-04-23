@@ -31,7 +31,7 @@ public class GameHistory extends JPanel {
         setForeground(Color.WHITE);
         setLayout(null);
         
-        JLabel levelLabel = new JLabel("Leaderboard");
+        JLabel levelLabel = new JLabel("Game History");
         levelLabel.setBounds(260, 79, 274, 82);
         levelLabel.setHorizontalAlignment(SwingConstants.CENTER);
         levelLabel.setFont(new Font("Impact", Font.PLAIN, 45));
@@ -79,16 +79,16 @@ public class GameHistory extends JPanel {
         comboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fetchAndDisplayLeaderboard();
+                fetchAndDisplayHistory();
             }
         });
         
-        fetchAndDisplayLeaderboard();
+        fetchAndDisplayHistory();
     }
     public void setUserName(String username) {
     	this.username = username;
     }
-    private void fetchAndDisplayLeaderboard() {
+    private void fetchAndDisplayHistory() {
     	DefaultTableModel model = new DefaultTableModel(new Object[]{"SNO.", "TIMESTAMP", "SCORE", "DURATION"}, 0);
     
         model.addRow(new Object[]{"SNO.", "SCORE", "DURATION", "TIMESTAMP"});
