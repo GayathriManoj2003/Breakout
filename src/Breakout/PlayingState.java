@@ -67,7 +67,7 @@ class PlayingState implements GameState {
                 if (brick != null && brick.isVisible()) {
                     bricks_exist++;
                     if (CollisionHandler.checkBallBrickCollision(ballController.getBallX(), ballController.getBallY(), ballController.getBallRadius(), ballController.getBallRadius(),
-                            brick.getX(), brick.getY(), brick.getWidth(), brick.getHeight())) {
+                            brick.getX(), brick.getY(), brickController.getWidth(), brickController.getHeight())) {
                         // Handle collision
                         brick.hit(); // Reduce durability
                         ballController.reverseBallDirY(); // Reverse ball direction (you may adjust this based on your game's logic)
