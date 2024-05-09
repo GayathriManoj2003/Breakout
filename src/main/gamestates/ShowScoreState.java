@@ -1,4 +1,6 @@
-package Breakout;
+package main.gamestates;
+
+import main.interfaces.GameState;
 
 public class ShowScoreState implements GameState {
 	public String message;

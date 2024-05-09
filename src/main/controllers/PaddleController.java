@@ -1,7 +1,10 @@
-package Breakout;
+package main.controllers;
 
 import java.awt.Graphics2D;
 import java.awt.event.*;
+
+import main.models.PaddleModel;
+import main.views.PaddleView;
 
 public class PaddleController extends KeyAdapter {
     private PaddleModel model;

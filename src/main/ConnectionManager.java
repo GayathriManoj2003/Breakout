@@ -1,4 +1,4 @@
-package Breakout;
+package main;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class ConnectionManager {
     private static String url = "jdbc:mysql://localhost:3306/Breakout";
     private static String username = "root";
-    private static String password = "Sairam123";
+    private static String password = "root";
     private static Connection connection = null;
 
     public static Connection getConnection() {

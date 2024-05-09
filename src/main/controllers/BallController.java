@@ -1,7 +1,10 @@
-package Breakout;
+package main.controllers;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+
+import main.models.Ball;
+import main.views.BallView;
 
 public class BallController {
 	Ball ball;
@@ -10,31 +13,31 @@ public class BallController {
 		this.ball = new Ball();
 		this.ballView = new BallView();
 	}
-	BallController( int posX, int posY, int velX, int velY, Color ballColor) {
+	public BallController( int posX, int posY, int velX, int velY, Color ballColor) {
 		this.ball = new Ball( posX, posY, velX, velY);
 		this.ball.setColor(ballColor);
 		this.ballView = new BallView();
 	}
-	int getBallX() {
+	public int getBallX() {
 		return ball.getPosX();
 	}
-	int getBallY() {
+	public int getBallY() {
 		return ball.getPosY();
 	}
-	int getBallRadius() {
+	public int getBallRadius() {
 		return ball.getRadius();
 	}
 	Color getBallColor() {
 		return ball.getColor();
 	}
-	void moveBall() {
+	public void moveBall() {
 		ball.setPosX( getBallX() + ball.getVelX());
 		ball.setPosY( getBallY() + ball.getVelY());
 	}
-	void reverseBallDirX() {
+	public void reverseBallDirX() {
 		ball.setVelX(ball.getVelX() * -1);
 	}
-	void reverseBallDirY() {
+	public void reverseBallDirY() {
 		ball.setVelY(ball.getVelY() * -1);
 	}
 	void setVelX( int velX) {
@@ -43,7 +46,7 @@ public class BallController {
 	void setVelY( int velY) {
 		ball.setVelX(velY);
 	}
-	void drawBall(Graphics2D g2d) {
+	public void drawBall(Graphics2D g2d) {
 		ballView.drawBall( g2d, getBallX(), getBallY(), getBallRadius(), getBallColor());
 	}
 }

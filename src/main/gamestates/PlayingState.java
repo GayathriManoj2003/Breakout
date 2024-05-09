@@ -1,17 +1,25 @@
-package Breakout;
+package main.gamestates;
 import java.awt.Graphics2D;
 import javax.swing.*;
+
+import main.CollisionHandler;
+import main.controllers.BallController;
+import main.controllers.BrickController;
+import main.controllers.PaddleController;
+import main.interfaces.GameState;
+import main.models.Brick;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-class PlayingState implements GameState {
+public class PlayingState implements GameState {
     private String message;
     private BallController ballController;
     private PaddleController paddleController;
     private BrickController brickController;
     public int score;
 
-    PlayingState(ActionMap actionMap, int ballVelX, int ballVelY, int numberOfBrickRows, Color ballColor, Color brickColor, int brickDurability) {
+    public PlayingState(ActionMap actionMap, int ballVelX, int ballVelY, int numberOfBrickRows, Color ballColor, Color brickColor, int brickDurability) {
         this.ballController = new BallController(400, 500, ballVelX, ballVelY, ballColor);
         this.paddleController = new PaddleController(800, 600, 100, 20);
         int widthBrickRows = numberOfBrickRows*20;

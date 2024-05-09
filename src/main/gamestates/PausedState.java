@@ -1,6 +1,8 @@
-package Breakout;
+package main.gamestates;
 
-class PausedState implements GameState {
+import main.interfaces.GameState;
+
+public class PausedState implements GameState {
 	private String message;
 	@Override
 	public void setMessage(String message) {

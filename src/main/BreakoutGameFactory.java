@@ -1,4 +1,10 @@
-package Breakout;
+package main;
+
+import main.gamepanels.EasyGamePanel;
+import main.gamepanels.GamePanel;
+import main.gamepanels.HardGamePanel;
+import main.gamepanels.MediumGamePanel;
+import main.interfaces.GameFactory;
 
 public class BreakoutGameFactory implements GameFactory {
     public GamePanel getGameInstance(String type) {

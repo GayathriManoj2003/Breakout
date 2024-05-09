@@ -1,6 +1,8 @@
-package Breakout;
+package main.gamestates;
 
-class QuitState implements GameState {
+import main.interfaces.GameState;
+
+public class QuitState implements GameState {
 	private String message;
 	@Override
 	public void setMessage(String message) {

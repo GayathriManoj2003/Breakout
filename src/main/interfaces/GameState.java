@@ -1,6 +1,6 @@
-package Breakout;
+package main.interfaces;
 
-interface GameState {
+public interface GameState {
     void setMessage(String message);
     String getMessage();
 }
