@@ -1,4 +1,4 @@
-package Breakout;
+package main.models;
 
 public class Player {
 	public String Username;
@@ -7,7 +7,7 @@ public class Player {
 	Player() {
 		this.Score = 0;
 	}
-	Player(String Username) {
+	public Player(String Username) {
 		this.Username = Username;
 		this.Level = "";
 		this.Score = 0;

@@ -1,5 +1,5 @@
 // BrickFlyweight.java
-package Breakout;
+package main.models;
 
 import java.awt.Color;
 

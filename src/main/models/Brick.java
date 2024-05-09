@@ -1,25 +1,15 @@
-package Breakout;
-
-import java.awt.*;
+package main.models;
 
 public class Brick {
     private int x, y;
     private boolean visible;
-    private int durability; // New attribute
-    private BrickView brickView;
+    private int durability;
 
     public Brick(int x, int y, int durability) {
         this.x = x;
         this.y = y;
         this.visible = true;
         this.durability = durability; // Initialize durability
-        this.brickView = new BrickView();
-    }
-
-    public void draw(Graphics2D g, int width, int height) {
-        if (visible) {
-            brickView.drawBrick(g, x, y, width, height, durability);
-        }
     }
 
     public int getX() {
@@ -39,6 +29,10 @@ public class Brick {
     
     public int getDurability() {
         return durability;
+    }
+    
+    public boolean getVisibility() {
+    	return visible;
     }
 
     public void hit() {

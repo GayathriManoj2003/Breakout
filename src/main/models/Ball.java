@@ -1,4 +1,4 @@
-package Breakout;
+package main.models;
 
 import java.awt.Color;
 
@@ -10,8 +10,8 @@ public class Ball {
 	private Color color;
 	private int radius;
 
-	Ball() {}
-	Ball( int posX, int posY, int velX, int velY) {
+	public Ball() {}
+	public Ball( int posX, int posY, int velX, int velY) {
 		this.posX = posX;
 		this.posY = posY;
 		this.velX = velX;
