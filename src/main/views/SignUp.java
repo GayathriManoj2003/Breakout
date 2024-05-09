@@ -1,9 +1,12 @@
-package Breakout;
+package main.views;
 
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import main.ConnectionManager;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;

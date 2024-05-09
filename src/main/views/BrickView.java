@@ -1,12 +1,12 @@
 // BrickView.java
-package Breakout;
+package main.views;
 
 import java.awt.*;
 import java.util.HashMap;
 
 public class BrickView {
 	HashMap<Integer, Color> mp;
-	BrickView() {
+	public BrickView() {
 		this.mp = new HashMap<Integer, Color>();
 		mp.put(1, Color.YELLOW);
 		mp.put(2, Color.ORANGE);

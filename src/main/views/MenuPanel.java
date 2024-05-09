@@ -1,4 +1,4 @@
-package Breakout;
+package main.views;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;

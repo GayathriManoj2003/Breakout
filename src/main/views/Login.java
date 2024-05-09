@@ -1,4 +1,4 @@
-package Breakout;
+package main.views;
 
 import java.awt.Color;
 
@@ -7,6 +7,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import main.ConnectionManager;
+import main.models.Player;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
