@@ -26,7 +26,7 @@ Project Structure
 
 ## Demo
 
-    ![1715280508068](image/README/1715280508068.png "Medium Game Demo")
+![1715280508068](image/README/1715280508068.png "Medium Game Demo")
 
 ## Class Diagram
 
