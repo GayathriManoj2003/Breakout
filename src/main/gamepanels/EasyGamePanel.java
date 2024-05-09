@@ -1,4 +1,4 @@
-package Breakout;
+package main.gamepanels;
 
 import java.awt.Color;
 

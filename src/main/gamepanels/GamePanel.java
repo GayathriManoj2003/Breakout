@@ -1,5 +1,14 @@
-package Breakout;
+package main.gamepanels;
 import javax.swing.*;
+
+import main.ConnectionManager;
+import main.gamestates.PausedState;
+import main.gamestates.PlayingState;
+import main.gamestates.QuitState;
+import main.gamestates.ShowScoreState;
+import main.interfaces.GameState;
+import main.models.Player;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.sql.Timestamp;  
