@@ -2,7 +2,7 @@
 
 ## Project Description
 
-This project is developed as a part of the Semester 6 - Object-Oriented Analysis and Design with Java (OOADJ) course.
+This project is developed as a part of the Semester 6 - Object-Oriented Analysis and Design with Java (OOADJ) course at PES University.
 
 Breakout is a Java-based object-oriented analysis project that implements a classic arcade game. In this game, players control a paddle at the bottom of the screen to bounce a ball towards a wall of bricks at the top. The objective is to break all the bricks by hitting them with the ball while ensuring that the ball doesn't fall off the bottom of the screen.
 
@@ -31,7 +31,6 @@ Project Structure
 ## Class Diagram
 
 ![1715280828506](image/README/1715280828506.png)
-
 
 ## Use of Design Principles and Design Patterns
 
